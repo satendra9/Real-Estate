@@ -1,8 +1,8 @@
 import connectMongoDBUsers from "@/libs/mongodbusers";
-import RegisterUser from "@/models/registerUser";
+import RegisterUser from "@/models/registeruser";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 
 export const authOptions = {
   providers: [
@@ -11,29 +11,25 @@ export const authOptions = {
       credentials: {},
 
       async authorize(credentials) {
-        const {email, password} = credentials;
-        
-        try{
-            await connectMongoDBUsers();
-            const user = await RegisterUser.findOne({email});
-            if(!user){
-                return null;
-            }
+        const { email, password } = credentials;
 
-            const passwordsMatch = await bcrypt.compare(password, user.password);
+        try {
+          await connectMongoDBUsers();
+          const user = await RegisterUser.findOne({ email });
+          if (!user) {
+            return null;
+          }
 
-            if(!passwordsMatch){
-                return null;
-            }
+          const passwordsMatch = await bcrypt.compare(password, user.password);
 
-            return user;
+          if (!passwordsMatch) {
+            return null;
+          }
 
-        }catch(error){
-            console.log(error);
+          return user;
+        } catch (error) {
+          console.log(error);
         }
-        
-
-
       },
     }),
   ],
@@ -43,7 +39,6 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/loginPage",
-    
   },
 };
 

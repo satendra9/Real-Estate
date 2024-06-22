@@ -3,7 +3,6 @@
 import React from 'react';
 import { useState, useNavigate } from 'react';
 import { useRouter } from 'next/navigation';
-import PropertyList from '../components/PropertyList'
 import Link from 'next/link';
 import Navbar from './Navbar';
 
@@ -49,7 +48,7 @@ const DetailsForm = () => {
   return (
     <>
     <Navbar />
-    <div className="bg-green-300 h-screen rounded-lg">
+    <div className="bg-green-300 h-screen rounded-lg cursor-auto">
     <div class="bg-[url('/stock1.jpg')] bg-[length:450px_400px] bg-no-repeat bg-right-top">
     <form onSubmit={handleSubmit} className='max-w-96'>
     <div className='flex justify-center mt-4 text-2xl font-serif font-semibold text-blue-700'>

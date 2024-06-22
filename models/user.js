@@ -1,4 +1,4 @@
-import mongoose, {Schema, models} from "mongoose";
+import mongoose, {Schema} from "mongoose";
 
 const userSchema = new Schema({
     title: {
@@ -19,11 +19,11 @@ const userSchema = new Schema({
     },
    contact: {
         type: Number,
-        required: true
+        required: true,
    }
 },
 {timestamps: true}
 );
 
-const User = models.User || mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 export default User;

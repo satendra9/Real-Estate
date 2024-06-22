@@ -2,6 +2,13 @@ import connectMongoDB from "@/libs/mongodb";
 import User from "@/models/user";
 import { NextResponse } from "next/server";
 
+export async function GET(req){
+    await connectMongoDB();
+    const properties = await User.find();
+    return NextResponse.json({properties});
+}
+
+
 export async function POST(req){
     const {title, description, image, place, contact} = await req.json();
     await connectMongoDB();
@@ -9,11 +16,6 @@ export async function POST(req){
     return NextResponse.json({messgae: "Details added to database"}, {status: 200});
 }
 
-export async function GET(req){
-    await connectMongoDB();
-    const property = await User.find();
-    return NextResponse.json({property});
-}
 
 export async function DELETE(req){
     const id = req.nextUrl.searchParams.get("id");

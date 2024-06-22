@@ -1,27 +1,28 @@
 import Link from 'next/link';
 import React from 'react'
-import { FaEdit } from "react-icons/fa";
-import { FcViewDetails } from "react-icons/fc";
-import DeleteForm from './DeleteForm';
 import Navbar from './Navbar';
+import { FcViewDetails } from 'react-icons/fc';
+import { FaEdit } from 'react-icons/fa';
+import DeleteForm from './DeleteForm';
 
-const getProperties = async () => {
+const getProperty = async () => {
     try{
         const res = await fetch("http://localhost:3000/api/addDetails", {
-            cache: "no-store",
+           cache: "no-store",
         })
         if(!res.ok){
             throw new Error("Unable to fetch data");
         }
-
+        
         return res.json();
+
     }catch(err){
         console.log(err);
     }
 }
 
 const PropertyList = async () => {
-    const {property} = await getProperties();
+    const {properties: prop} = await getProperty();
   
   return (
     <>
@@ -39,7 +40,7 @@ const PropertyList = async () => {
    </thead>
    <tbody className='text-cyan-900 text-center'>
      {
-       property.map((p) => (
+       prop.map((p) => (
  
      <tr key={p._id} className='bg-slate-100 hover:bg-slate-200 hover:scale-200 cursor-pointer duration-300 text-center'>
        <td className='py-3 px-6 text-center ml-4'><FcViewDetails size={22}/></td>
@@ -53,7 +54,7 @@ const PropertyList = async () => {
         <Link href={`/api/editForm/${p._id}`}><FaEdit size={22}/></Link>
         </div>
         <div>
-        <DeleteForm />
+        <DeleteForm id={p._id}/>
         </div>
         </td>
     
@@ -61,7 +62,8 @@ const PropertyList = async () => {
        ))}
    </tbody>
  </table>
-    </>
+    </> 
+   
   )
 }
 

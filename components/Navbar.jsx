@@ -16,7 +16,7 @@ const Navbar = () => {
           Real Estate Management</h1>
           </div>
           <div className='mt-3'>
-          <button onClick={() => signOut()} type="button" class="btn btn-danger">LOG OUT</button>
+          <button onClick={() => signOut()} type="button" className="btn btn-danger">LOG OUT</button>
           </div>
           </div>
           
